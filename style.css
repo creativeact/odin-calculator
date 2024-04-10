@@ -1,0 +1,42 @@
+body {
+    font-family: roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: rgb(230, 246, 240);
+}
+
+#header {
+    background-color: rgb(60, 105, 123);
+    width: auto;
+    margin-bottom: 50px;
+    text-align: center;
+    color: white;
+}
+
+#calculator-frame {
+    background-color: gray;
+    border-radius: 25px;
+    width: 400px;
+    height: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#display-container {
+    background-color: aliceblue;
+    border-radius: 25px;
+    width: 350px;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#display-input {
+
+}
+
+#display-output {
+
+}
