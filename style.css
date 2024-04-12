@@ -72,8 +72,8 @@ body {
 }
 
 .btn {
-    width: 65px;
-    height: 65px;
+    width: 75px;
+    height: 75px;
     background-color: rgb(60, 105, 123);
     border: 3px solid white;
     border-radius: 50px;
@@ -83,6 +83,20 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.btn:hover {
+    background-color: rgb(171, 174, 175);
+}
+
+.operator {
+    background-color: rgb(53, 77, 107);
+}
+
+.action {
+    background-color: rgb(224, 160, 101);
+}
+
+
 
 #zero {
     width: 155px;
