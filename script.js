@@ -16,17 +16,18 @@ const divide = function(x,y) {
 }
 
 // Call update display function when number is clicked
-const numberBtn = document.querySelector('.number');
-numberBtn.addEventListener('click', () => {
-    const numValue = numberBtn.value;
-    updateDisplay(numValue);
+const numbers = document.querySelectorAll('.number');
+numbers.forEach(number => {
+    number.addEventListener('click', () => {
+        updateDisplay(number.textContent);
+    });
 });
 
 // Display input to user as it is updated
 const inputDisplay = document.getElementById('display-input');
 
-function updateDisplay(num) {
-    
+function updateDisplay(input) {
+    inputDisplay.textContent = input;
 }
 
 // Execute operation based on inputs
