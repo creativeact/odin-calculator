@@ -39,7 +39,7 @@ body {
     margin-right: auto;
 }
 
-#display-input {
+#input-display {
     width: auto;
     margin-right: 15px;
     height: 30px;
@@ -50,7 +50,7 @@ body {
     font-size: 25px;
 }
 
-#display-output {
+#output-display {
     width: auto;
     height: 70px;
     display: flex;

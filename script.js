@@ -3,27 +3,15 @@ let num1 = null;
 let num2 = null;
 let operator = null;
 
-// Declare operator functions
-const add = function(x,y) {
-    return x + y;
-}
-const subtract = function(x,y) {
-    return x + y;
-}
-const multiply = function(x,y) {
-    return x * y;
-}
-const divide = function(x,y) {
-    return x / y;
-}
-
-const inputDisplay = document.querySelector('#display-input');
+// Declare display elements to be updated
+const inputDisplay = document.querySelector('#input-display');
+const outputDisplay = document.querySelector('#output-display');
 
 // Call updateDisplay to update input when number is clicked
 const numbers = document.querySelectorAll('.number');
 numbers.forEach(number => {
     number.addEventListener('click', () => {
-        updateDisplay(number.textContent);
+        updateInputDisplay(number.textContent);
         if (num1 === null) {
             num1 = `${number.textContent}`;
         }
@@ -44,14 +32,14 @@ const operatorBtns = document.querySelectorAll('.operator');
 operatorBtns.forEach(operatorBtn => {
     operatorBtn.addEventListener('click', () => {
         if (num1 !== null && operator === null) {
-            updateDisplay(operatorBtn.textContent);
+            updateInputDisplay(operatorBtn.textContent);
             // Set operator variable to the corresponding operatorBtn
             operator = `${operatorBtn.textContent}`;
         }
     });
 });
 
-function updateDisplay(input) {
+function updateInputDisplay(input) {
     if (input === "+" || input === "-" || input === "x" || input === 
     "/") {
         inputDisplay.textContent +=` ${input} `;
@@ -60,7 +48,34 @@ function updateDisplay(input) {
     inputDisplay.textContent +=`${input}`;
 }
 
+// Call operate function when equal is clicked
+const equal = document.querySelector('#equal');
+equal.addEventListener('click', () => {
+    if (num1 !== null && operator !== null && num2 !== null) {
+        operate(num1, num2, operator);
+    }
+});
+
 // Execute operation based on inputs
 function operate(num1, num2, operator) {
-    return operator(num1, num2);
+    let x = parseInt(num1);
+    let y = parseInt(num2);
+    let result = null;
+    if (operator === '+') {
+        result = x + y;
+    }
+    else if (operator === '-') {
+        result = x - y;
+    }
+    else if (operator === 'x') {
+        result = x * y;
+    }
+    else if (operator === '/') {
+        result = x / y;
+    }
+    updateOutputDisplay(result);
+}
+
+function updateOutputDisplay(result) {
+    outputDisplay.textContent = `${result}`;
 }
