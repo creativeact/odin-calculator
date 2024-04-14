@@ -7,7 +7,7 @@ let operator = null;
 const inputDisplay = document.querySelector('#input-display');
 const outputDisplay = document.querySelector('#output-display');
 
-// Call updateDisplay to update input when number is clicked
+// Call updateInpuDisplay when number is clicked
 const numbers = document.querySelectorAll('.number');
 numbers.forEach(number => {
     number.addEventListener('click', () => {
@@ -18,16 +18,16 @@ numbers.forEach(number => {
         else if (num1 !== null && operator === null) {
             num1 += `${number.textContent}`;
         }
-        else if (num1 !== null && operator !== null) {
-            num2 = `${number.textContent}`;
-        }
         else if (num1 !== null && operator !== null && num2 !== null) {
             num2 += `${number.textContent}`;
+        }
+        else if (num1 !== null && operator !== null) {
+            num2 = `${number.textContent}`;
         }
     });
 });
 
-// Call updateDisplay to update input when operator is clicked
+// Call updateInputDisplay when operator is clicked
 const operatorBtns = document.querySelectorAll('.operator');
 operatorBtns.forEach(operatorBtn => {
     operatorBtn.addEventListener('click', () => {
@@ -54,6 +54,16 @@ equal.addEventListener('click', () => {
     if (num1 !== null && operator !== null && num2 !== null) {
         operate(num1, num2, operator);
     }
+});
+
+// On A/C click, clear display and reset variables to null
+const allClear = document.querySelector('#all-clear');
+allClear.addEventListener('click', () => {
+    num1 = null;
+    operator = null;
+    num2 = null;
+    inputDisplay.textContent = '';
+    outputDisplay.textContent = '';
 });
 
 // Execute operation based on inputs
