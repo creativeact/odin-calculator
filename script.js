@@ -2,6 +2,8 @@
 let num1 = null;
 let num2 = null;
 let operator = null;
+
+// Declare result variable to support multiple calculations
 let result = null;
 
 // Declare display elements to be updated
@@ -20,6 +22,9 @@ numbers.forEach(number => {
             return;
         }
         else if (num1 !== null && operator !== null && result === null && num2 === "0") {
+            return;
+        }
+        else if (num1 === "0" && input === "0") {
             return;
         }
 
@@ -46,6 +51,26 @@ numbers.forEach(number => {
     });
 });
 
+const decimalBtn = document.querySelector('#decimal-place');
+decimalBtn.addEventListener('click', () => {
+    if (num1 === null) {
+        updateInputDisplay("0.")
+    }
+})
+
+// Pass negative flag to updateInputDisplay and reassign num variable
+const negativeBtn = document.querySelector('#negative-flag');
+negativeBtn.addEventListener('click', () => {
+    if (num1 !== null && num2 === null) {
+        num1 = parseInt(num1) * -1;
+        updateInputDisplay("negative-flag");
+    }
+    else if(num1 !=null && num2 !== null && result === null) {
+        num2 = parseInt(num2) * -1;
+        updateInputDisplay("negative-flag");
+    }
+});
+
 // Assign operator variable and call updateInputDisplay when operator is clicked
 const operatorBtns = document.querySelectorAll('.operator');
 operatorBtns.forEach(operatorBtn => {
@@ -63,6 +88,7 @@ operatorBtns.forEach(operatorBtn => {
             num1 = parseInt(result);
             updateInputDisplay(num1);
             updateInputDisplay(input);
+            outputDisplay.textContent = "";
             operator = `${input}`;
         }
     });
@@ -73,6 +99,12 @@ function updateInputDisplay(input) {
     if (input === "+" || input === "-" || input === "x" || input === 
     "/") {
         inputDisplay.textContent +=` ${input} `;
+    }
+    else if (input === "negative-flag" && num2 === null) {
+        inputDisplay.textContent = `${num1}`;
+    }
+    else if (input === "negative-flag" && num2 !== null) {
+        inputDisplay.textContent = `${num1} ${operator} ${num2}`;
     }
     else if (result !== null) {
         inputDisplay.textContent = `${input}`;
@@ -131,3 +163,14 @@ function updateOutputDisplay(solution) {
     outputDisplay.textContent = `${solution}`;
     result = solution;
 }
+
+// Keep copyright year current
+document.addEventListener('DOMContentLoaded', function () {
+    const year = document.querySelector('#year');
+    
+    function getYear() {
+        year.innerHTML = new Date().getFullYear();
+    }
+    getYear();
+});
+
