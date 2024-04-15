@@ -88,7 +88,7 @@ body {
 }
 
 .btn:hover {
-    background-color: rgb(171, 174, 175);
+    background-color: rgb(151, 151, 151);
 }
 
 .operator {
@@ -96,7 +96,7 @@ body {
 }
 
 .action {
-    background-color: rgb(224, 160, 101);
+    background-color: rgb(195, 98, 8);
 }
 
 #zero {
