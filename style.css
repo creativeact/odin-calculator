@@ -82,6 +82,10 @@ body {
     background-color: rgb(151, 151, 151);
 }
 
+.equal {
+    background-color: rgb(53, 77, 107);
+}
+
 .operator {
     background-color: rgb(53, 77, 107);
 }
