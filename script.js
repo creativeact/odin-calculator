@@ -10,6 +10,17 @@ let result = null;
 const inputDisplay = document.querySelector('#input-display');
 const outputDisplay = document.querySelector('#output-display');
 
+// Helper function to check length of numbers
+function checkNumLength(num) {    
+    if (num === null || num === "") {
+        return;
+    }
+    else if (num.length >= 9) {
+        return true;
+    }
+    else return false;
+};
+
 // Assign number variables and call updateInpuDisplay when number is clicked
 const numbers = document.querySelectorAll('.number');
 numbers.forEach(number => {
@@ -32,6 +43,14 @@ numbers.forEach(number => {
         else if (result !== null) {
             num1 =`${input}`;
             operator = null;
+        }
+
+        // Prevent updating nums if too long
+        else if (checkNumLength(num1) === true && operator === null) {
+            return;
+        }
+        else if (checkNumLength(num2) === true && result === null) {
+            return;
         }
 
         // Update num1 or num2 based on conditions
@@ -58,7 +77,7 @@ decimalBtn.addEventListener('click', () => {
         num1 = "0.";
         updateInputDisplay(num1);
     }
-    else if (num1.includes(".") === false && num2 === null) {
+    else if (num1.toString().includes(".") === false && num2 === null) {
         num1 += ".";
         updateInputDisplay(".");
     }
@@ -66,7 +85,7 @@ decimalBtn.addEventListener('click', () => {
         num2 = "0.";
         updateInputDisplay(num2);
     }
-    else if (num2.includes(".") === false) {
+    else if (num2.toString().includes(".") === false) {
         num2 += ".";
         updateInputDisplay(".");
     }
@@ -80,10 +99,10 @@ negativeBtn.addEventListener('click', () => {
     }
 
     // Error handling for garbage values after clearing
-    else if (isNaN(parseFloat(num1)) === true) {
+    else if (operator !== null && num2 === "") {
         return;
     }
-    else if (num1 !== null && num2 === "") {
+    else if (operator !== null && isNaN(parseFloat(num2)) === true) {
         return;
     }
 
@@ -128,8 +147,6 @@ operatorBtns.forEach(operatorBtn => {
 
 // Update display with input
 function updateInputDisplay(input) {
-
-    // Add a space around operators
     if (input === "+" || input === "-" || input === "x" || input === 
     "/") {
         inputDisplay.textContent +=` ${input} `;
@@ -143,8 +160,6 @@ function updateInputDisplay(input) {
         inputDisplay.textContent = `${num1} ${operator} ${num2}`;
     }
 
-    // Prevent errors from 
-
     // Clear input based on conditions
     else if (input === "clear" && operator === null && isNaN(parseFloat(num2)) === true) {
         let newNum = num1.slice(0, -1);
@@ -153,6 +168,7 @@ function updateInputDisplay(input) {
     }
     else if (input === "clear" && operator !== null && isNaN(parseFloat(num2)) === true) {
         operator = null;
+        num2 = null;
         inputDisplay.textContent = `${num1}`;
     }
     else if (input === "clear" && operator !== null && num2 != null & result === null) {
@@ -160,14 +176,14 @@ function updateInputDisplay(input) {
         num2 = newNum;
         inputDisplay.textContent = `${num1} ${operator} ${num2}`;
     }
-
-
+    
     // If there was a previous calculation, reset variables to prepare for new operate call
     else if (result !== null) {
         inputDisplay.textContent = `${input}`;
         result = null;
         num2 = null;
     }
+
     else
     inputDisplay.textContent +=`${input}`;
 }
@@ -197,23 +213,30 @@ clear.addEventListener('click', () => {
     if (num1 === null) {
        return;
     }
+
+    // Reset result if clear clicked after calculation
     else if (result !== null) {
-        num1 = "0";
-        operator = null;
-        num2 = null;
-        inputDisplay.textContent = "0";
         outputDisplay.textContent = '';
         result = null;
+    }
+
+    // Handle edge case for clicking number then clear after a calculation
+    else if (num1 !== null && outputDisplay.textContent !== "") {
+        num1 = null;
+        inputDisplay.textContent = "";
+        outputDisplay.textContent = "";
     }
     else {
         updateInputDisplay("clear");
     }
-})
+});
 
 // Execute operation based on inputs
 function operate(num1, num2, operator) {
-    let x = parseFloat(num1);
-    let y = parseFloat(num2);
+
+    // Convert nums to float and round to two decimal places to avoid long numbers
+    let x = Math.round(parseFloat(num1) * 100) / 100;
+    let y = Math.round(parseFloat(num2) * 100) / 100;
     let solution = null;
 
     // Prevent calculations with garbage values after clearing
@@ -241,12 +264,12 @@ function operate(num1, num2, operator) {
     }
     else
     updateOutputDisplay(solution);
-}
+};
 
 function updateOutputDisplay(solution) {
     outputDisplay.textContent = `${solution}`;
     result = solution;
-}
+};
 
 // Keep copyright year current
 document.addEventListener('DOMContentLoaded', function () {
